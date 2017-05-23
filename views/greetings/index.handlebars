@@ -6,6 +6,10 @@
   </head>
   <body>
     <h1>Greetings</h1>
-    {{greetings}}
+<ul>
+    {{#each greetings}}
+<li>{{this}}</li>
+    {{/each}}
+  </ul>
   </body>
 </html>
