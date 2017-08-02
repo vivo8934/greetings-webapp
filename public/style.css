@@ -1,0 +1,22 @@
+body{
+
+  background-color: lightgreen;
+}
+.Mygreeting{
+  background-color: white;
+  width: 80%;
+  margin: auto;
+  padding: 1em;
+  font-family: 'Arial';
+}
+.myForm{
+  background-color: white;
+  width: 80%;
+  margin: auto;
+  padding: 1em;
+  font-family: 'Arial';
+
+}
+.output{
+background-color: whitesmoke;
+}

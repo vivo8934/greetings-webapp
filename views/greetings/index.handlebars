@@ -5,11 +5,16 @@
     <title>greetings</title>
   </head>
   <body>
+    <div class="Mygreeting">
     <h1>Greetings</h1>
+
+    <a href="greetings/:name">Add Name</a>
 <ul>
     {{#each greetings}}
-<li>{{this}}</li>
+<a href = "/counter/{{this}}"><li>{{this}}</li></a>
     {{/each}}
+
   </ul>
+  </div>
   </body>
 </html>

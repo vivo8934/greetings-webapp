@@ -1,67 +1,33 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
-//var greeted = [];
-//var greetCount = [];
-var counterMap = {};
+const GreetedRoutes = require('./greetings');
 
+const greetedRoutes = GreetedRoutes();
 const app = express();
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-var upperCaseName = function(name){
-  var name = (name.substr(0, 1).toUpperCase() + '' + name.substr(1).toLowerCase());
-return name;
-}
+app.use(express.static('public'));
 
-app.get('/greetings/:name', function(req, res) {
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-  var name = upperCaseName(req.params.name);
+// parse application/json
+app.use(bodyParser.json())
 
-  if (counterMap[name] === undefined) {
-    counterMap[name] = 0;
-  }
-  counterMap[name]++;
+app.get('/greeted', greetedRoutes.index);
+app.get('/greetings/', greetedRoutes.addScreen);
+app.post('/greetings/', greetedRoutes.add);
 
-  res.send('Hello, ' + name);
+app.get('/counter/:name', greetedRoutes.counter);
 
-  // var foundName = greeted.find(function(currentName) {
-  //   return currentName === name;
-  // });
-  // if (!foundName) {
-  //   greeted.push(name);
-  // }
-  //greetCount.push(name);
-  //console.log(greetCount);
+//start the server
+var server = app.listen(3000, function(){
+var host = server.address().address;
+var port = server.address().port;
+
+
 });
-
-app.get('/greeted', function(req, res) {
-  // get all the names greeted
-  var greeted = [];
-
-  //create a list from all the Key Objects - the key us the names
-  for(name in counterMap){
-    greeted.push(name);
-  }
-
-  res.render('greetings/index.handlebars', {greetings: greeted});
-})
-
-app.get('/counter/:name', function(req, res) {
-
-  const name = upperCaseName(req.params.name);
-
-  //have I greeted this name  before?
-
-  res.send('Hello ' + name + " " + 'has been greeted ' + counterMap[name] + " " + 'time(s)');
-})
-
-
-const port = 3000;
-
-app.listen(port, function() {
-
-  console.log('port number is: ' + port);
-
-})

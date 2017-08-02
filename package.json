@@ -16,5 +16,8 @@
     "handlebars": "^4.0.8",
     "mocha": "^3.4.1",
     "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "node-inspector": "^1.1.1"
   }
 }
