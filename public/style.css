@@ -4,19 +4,27 @@ body{
 }
 .Mygreeting{
   background-color: white;
-  width: 80%;
+  width: 70%;
   margin: auto;
   padding: 1em;
   font-family: 'Arial';
 }
 .myForm{
   background-color: white;
-  width: 80%;
   margin: auto;
+  width: 70%;
   padding: 1em;
   font-family: 'Arial';
 
 }
 .output{
 background-color: whitesmoke;
+width: inherit;;
+height: 50px;
+margin: auto;
+}
+h1{
+  margin: auto;
+  padding: 1em;
+  font-family: 'Arial';
 }

@@ -8,11 +8,15 @@ module.exports = function(){
   };
 
   const addScreen = function(req, res){
+    var currentName = req.params.name;
 
-res.render('greetings/add');
+    var msg = 'Hello' + ' ' + currentName;
+res.render('greetings/add', {massage: msg});
   };
 
-
+const addMenu = function(req, res){
+  res.render('greetings/add')
+}
   const add = function(req, res){
 
 //  var name = req.params.name;
@@ -33,8 +37,8 @@ var name = req.body.name;
     counterMap[name] ++;
     const greetedCounter = counterMap[name]
 
-    res.send('Hello ' + (name.substr(0,1).toUpperCase() + name.substr(1).toLowerCase()));
-    //;res.redirect('/greeted');
+    //res.send('Hello ' + (name.substr(0,1).toUpperCase() + name.substr(1).toLowerCase()));
+    res.redirect('/greetings/' + name);
 
   }
 
@@ -52,6 +56,7 @@ const greetedCounter = counterMap[name];
     index,
     add,
     counter,
-    addScreen
+    addScreen,
+    addMenu
   }
 }

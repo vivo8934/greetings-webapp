@@ -19,8 +19,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/greeted', greetedRoutes.index);
-app.get('/greetings/', greetedRoutes.addScreen);
-app.post('/greetings/', greetedRoutes.add);
+app.get('/greetings/:name', greetedRoutes.addScreen);
+app.get('/greetings', greetedRoutes.addMenu);
+app.post('/add', greetedRoutes.add);
 
 app.get('/counter/:name', greetedRoutes.counter);
 
@@ -28,6 +29,5 @@ app.get('/counter/:name', greetedRoutes.counter);
 var server = app.listen(3000, function(){
 var host = server.address().address;
 var port = server.address().port;
-
 
 });
