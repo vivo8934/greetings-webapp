@@ -12,7 +12,10 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "express-flash": "git://github.com/RGBboy/express-flash.git",
+    "express-flash-messages": "^0.1.1",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.5",
     "handlebars": "^4.0.8",
     "mocha": "^3.4.1",
     "nodemon": "^1.11.0"

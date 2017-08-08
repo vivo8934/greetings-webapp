@@ -1,12 +1,17 @@
 <h1>Greeting Web-Application</h1>
 
-<form class="myForm" action="/add" method="post">
+<form class="myForm" action="/greetings" method="post">
 
   <input type="text" name="name" Placeholder="Enter Name">
   <br>
   <br>
-  <input type="submit" value="Greet">
-
+  <input type="radio" name="languages" value="Hello  ">English
+      <input type="radio" name="languages" value="Moloweni  " >IsiXhosa
+<input type="radio" name="languages" value="Ni hao  ">Mandarin
+<br><br>
+      <input type="submit" value="Greet">
+  <br><br>
+<a href="/greeted">View All greeted</a>
 </form>
 <br><br>
 <div class="output">
