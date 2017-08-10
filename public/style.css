@@ -19,9 +19,11 @@ body{
 }
 .output{
 background-color: whitesmoke;
-width: inherit;;
-height: 50px;
+width: inherit;
+height: 50%;
 margin: auto;
+font-size: 30px;
+color: red;
 }
 h1{
   margin: auto;
