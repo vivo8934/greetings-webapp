@@ -1,8 +1,11 @@
-<h1>Greeting Web-Application</h1>
 
+<div class="jumbotron">
 
+   <h2 class="text-center">Greeting Web-Application</h2>
 <form class="myForm" action="/greetings" method="post">
 <div class="input-group">
+  <span class="input-group-addon">Name</span>
+   <label for="inputlg"></label>
   <input type="text" name="name" placeholder="Enter Name">
 </div>
 <div class="form-group">
@@ -16,10 +19,14 @@
 <a href="/greeted">View All greeted</a>
 </form>
 <br><br>
-<div class="output">
+<div id="output" class="text-center">
   <div class="">
-
     {{messages.error}}
   </div>
   {{massage}}
+  <div class="">
+    {{counter}}
+  </div>
+</div>
+
 </div>
