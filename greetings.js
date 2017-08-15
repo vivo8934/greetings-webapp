@@ -30,8 +30,11 @@ else {
     }
     var myCounter = greetedList.length;
 
-if(!name || !radioBtn){
-req.flash('error', 'enter name or select radio button');
+if(!name){
+req.flash('error', 'enter name');
+}
+else if(!radioBtn){
+  req.flash('error', 'Select Radio button');
 }
 else if(counterMap[name] === undefined){
     counterMap[name] = 0;
