@@ -28,19 +28,21 @@ else {
   if(name && !foundName){
   greetedList.push(name);
     }
-    var myCounter = greetedList.length;
 
-if(!name){
-req.flash('error', 'enter name');
-}
-else if(!radioBtn){
-  req.flash('error', 'Select Radio button');
-}
-else if(counterMap[name] === undefined){
+//console.log(name.length);
+
+if(!name || !radioBtn || name.length === 0){
+req.flash('error', 'enter name or Select radio button');
+res.render('greetings/add', {massage: msg, counter: myCounter});
+//myCounter = 0;
+return;
+} else if(counterMap[name] === undefined){
     counterMap[name] = 0;
   }
+  var myCounter = greetedList.length;
   counterMap[name] ++;
   const greetedCounter = counterMap[name]
+
     var msg = radioBtn + ' ' + name;
 res.render('greetings/add', {massage: msg, counter: myCounter});
 }
