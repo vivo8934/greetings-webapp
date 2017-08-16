@@ -33,8 +33,9 @@ app.post('/greetings', greetedRoutes.add);
 app.get('/counter/:name', greetedRoutes.counter);
 
 //start the server
-var server = app.listen(process.env.Port || 5000, function(){
-var host = server.address().address;
-var port = server.address().port;
-
-});
+var server = app.listen(process.env.Port || 5000);
+//   function(){
+// var host = server.address().address;
+// var port = server.address().port;
+//
+// });
