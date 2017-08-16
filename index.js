@@ -1,67 +1,40 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
+const flash = require('express-flash');
+const session = require('express-session');
+const GreetedRoutes = require('./greetings');
 
-//var greeted = [];
-//var greetCount = [];
-var counterMap = {};
-
+const greetedRoutes = GreetedRoutes();
 const app = express();
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-var upperCaseName = function(name){
-  var name = (name.substr(0, 1).toUpperCase() + '' + name.substr(1).toLowerCase());
-return name;
-}
 
-app.get('/greetings/:name', function(req, res) {
 
-  var name = upperCaseName(req.params.name);
+app.use(express.static('public'));
+// parse application/x-www-form-urlencoded
 
-  if (counterMap[name] === undefined) {
-    counterMap[name] = 0;
-  }
-  counterMap[name]++;
+app.use(bodyParser.urlencoded({ extended: false }))
 
-  res.send('Hello, ' + name);
+// parse application/json
+app.use(bodyParser.json())
 
-  // var foundName = greeted.find(function(currentName) {
-  //   return currentName === name;
-  // });
-  // if (!foundName) {
-  //   greeted.push(name);
-  // }
-  //greetCount.push(name);
-  //console.log(greetCount);
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000  * 30}}))
+app.use(flash());
+
+
+
+app.get('/greeted', greetedRoutes.index);
+app.get('/greetings', greetedRoutes.getMenu);
+app.post('/greetings', greetedRoutes.add);
+
+app.get('/counter/:name', greetedRoutes.counter);
+
+//start the server
+var server = app.listen(process.env.Port || 3000, function(){
+var host = server.address().address;
+var port = server.address().port;
+
 });
-
-app.get('/greeted', function(req, res) {
-  // get all the names greeted
-  var greeted = [];
-
-  //create a list from all the Key Objects - the key us the names
-  for(name in counterMap){
-    greeted.push(name);
-  }
-
-  res.render('greetings/index.handlebars', {greetings: greeted});
-})
-
-app.get('/counter/:name', function(req, res) {
-
-  const name = upperCaseName(req.params.name);
-
-  //have I greeted this name  before?
-
-  res.send('Hello ' + name + " " + 'has been greeted ' + counterMap[name] + " " + 'time(s)');
-})
-
-
-const port = 3000;
-
-app.listen(port, function() {
-
-  console.log('port number is: ' + port);
-
-})

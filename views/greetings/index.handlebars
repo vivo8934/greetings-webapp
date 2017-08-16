@@ -3,9 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>greetings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <div class="jumbotron">
     <h1>Greetings</h1>
-    {{greetings}}
+<ul class="list-group">
+    {{#each greetings}}
+<a href = "/counter/{{this}}"><li class="list-group-item";>{{this}}</li></a>
+    {{/each}}
+  </ul>
+  <br>
+  <button type="button" class="btn"><a href="/greetings">Add Name</a></button>
+  </div>
+  {{messages.error}}
   </body>
 </html>

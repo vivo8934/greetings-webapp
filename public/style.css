@@ -1,0 +1,30 @@
+body{
+
+  background-color: lightgreen;
+}
+.Mygreeting{
+  background-color: white;
+  width: 70%;
+  margin: auto;
+  padding: 1em;
+  font-family: 'Arial';
+}
+.myForm{
+  background-color: white;
+  margin: auto;
+  width: 70%;
+  padding: 1em;
+  font-family: 'Arial';
+
+}
+#output{
+background-color: whitesmoke;
+width: inherit;
+height: 50%;
+margin: auto;
+font-size: 30px;
+color: red;
+}
+h1{
+  font-family: 'Arial';
+}
