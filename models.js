@@ -1,11 +1,21 @@
 const mongoose = require('mongoose');
-module.exports = function(mongoUrl){
+module.exports = function(mongoUrl) {
+  mongoose.connect(mongoUrl);
 
-const greets = mongoose.model('greets', {name : String});
+  const greetsSchema = mongoose.Schema({
+    name: String
+  });
+  greetsSchema.index({
+    name: 1
+  }, {
+    unique: true
+  });
 
-return{
-  greets
-};
+  const greets = mongoose.model('greets', greetsSchema);
+
+  return {
+    greets
+  };
 
 
 }
