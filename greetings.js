@@ -10,7 +10,7 @@ var getCounter = function(cb) {
       cb(null, greets);
     });
 }
-//////////////////////////////////////////////
+////////////////////////////////////////////
 
 // clearing counter
 var clearCounter = function(req, res, next) {
@@ -22,7 +22,7 @@ var clearCounter = function(req, res, next) {
     }
   });
 }
-//////////////////////////////////////////////////
+////////////////////////////////////////////////
 
 // getting the menu screen
 const getMenu = function(req, res, next){
@@ -35,7 +35,7 @@ res.render('greetings/add', {counter: greets})
   }
 });
 }
-///////////////////////////////////////////////////
+/////////////////////////////////////////////////
 
 // create a massage for greeting
 const add = function(req, res, next){
