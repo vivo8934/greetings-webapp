@@ -1,41 +1,47 @@
 module.exports = function(models){
 
-  const greetedList = [];
-  const counterMap = {};
+// getting counter
+var getCounter = function(cb) {
+  models.greets.count({})
+    .exec(function(err, greets) {
+      if (err) {
+        return next(err);
+      }
+      cb(null, greets);
+    });
+}
+
+// clearing counter
+var clearCounter = function(req, res, next) {
+  models.greets.remove({}, function(err, greets){
+    if (err) {
+    return next(err);
+    } else {
+    res.redirect('/');
+    }
+  });
+}
+
 
 // getting the menu screen
-const getMenu = function(req, res){
-  res.render('greetings/add');
+const getMenu = function(req, res, next){
+getCounter(function(err, greets){
+if (err){
+  return next(err);
 }
+  else{
+res.render('greetings/add', {counter: greets})
+  }
+});
+}
+
 // create a massage for greeting
 const add = function(req, res, next){
-
   var radioBtn = req.body.languages;
 
-var greetedName = req.body.name;
+  var greetedName = req.body.name;
 
-// if(!greetedName){
-//   greetedName = req.body.name
-// }
- if(counterMap[greetedName] === undefined) {
-  counterMap[greetedName] = 0;
-  //greetedName = greetedName.substr(0,1).toUpperCase() +  greetedName.substr(1).toLowerCase();
-}
-var myCounter = greetedList.length;
-counterMap[greetedName] ++;
-const greetedCounter = counterMap[greetedName];
-
-
-
-  // var foundName = greetedList.find(function(currentName){
-  //    return currentName === name;
-  // });
-
-  // if(name && !foundName){
-  // greetedList.push(name);
-  //   }
-
-//console.log(name.length);
+greetedName.substr(0, 1).toUpperCase() + greetedName.substr(1).toLowerCase()
 
 if(!greetedName || !radioBtn){
 req.flash('error', 'enter name or Select radio button');
@@ -48,6 +54,7 @@ models.greets.create({name: greetedName}, function(err, results){
 if(err){
   if(err.code === 11000){
 req.flash('error', 'Welcome back')
+
   }
   else {
     next(err);
@@ -55,7 +62,7 @@ req.flash('error', 'Welcome back')
 }
 
 var msg = radioBtn + ' ' + greetedName;
-res.render('greetings/add', {massage: msg, counter: myCounter});
+res.render('greetings/add', {massage: msg});
 })
 
 }
@@ -68,7 +75,6 @@ if(err){
   return next(err);
 }
 res.render('greetings/index', {greetings});
-
 });
 };
 
@@ -86,6 +92,7 @@ const greetedCounter = counterMap[name];
     index,
     counter,
     getMenu,
-    add
+    add,
+    clearCounter
   }
 }

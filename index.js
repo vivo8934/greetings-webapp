@@ -11,7 +11,7 @@ const session = require('express-session');
 const GreetedRoutes = require('./greetings');
 const Models = require('./models');
 
-const models = Models('mongodb://localhost/greeting-tests')
+const models = Models(process.env.MONGO_DB_URL ||'mongodb://localhost/greeting-tests')
 
 const greetedRoutes = GreetedRoutes(models);
 const app = express();
@@ -38,6 +38,7 @@ app.get('/greeted', greetedRoutes.index);
 app.get('/', greetedRoutes.getMenu);
 app.post('/greetings', greetedRoutes.add);
 
+app.get('/reset', greetedRoutes.clearCounter);
 app.get('/counter/:name', greetedRoutes.counter);
 
 //start the server
