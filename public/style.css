@@ -28,7 +28,13 @@ color: red;
 h1{
   font-family: 'Arial';
 }
+.CounterStyle{
 
-.success{
-  font-style: italic;
+  background-color: whitesmoke;
+  width: 700px;
+  height: 175px;
+  margin: auto;
+  font-size: 30px;
+  color: red;
+
 }

@@ -5,9 +5,6 @@ const flash = require('express-flash');
 const session = require('express-session');
 
 
-
-
-
 const GreetedRoutes = require('./greetings');
 const Models = require('./models');
 
@@ -39,7 +36,7 @@ app.get('/', greetedRoutes.getMenu);
 app.post('/greetings', greetedRoutes.add);
 
 app.get('/reset', greetedRoutes.clearCounter);
-app.get('/counter/:name', greetedRoutes.counter);
-
+app.get('/counter/:names', greetedRoutes.counter);
+app.get('/greetings/counter', greetedRoutes.counter);
 //start the server
 var server = app.listen(process.env.PORT || 5000);

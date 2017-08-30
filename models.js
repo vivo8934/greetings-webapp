@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
-module.exports = function(mongoUrl) {
+module.exports = function(mongoUrl){
+mongoose.Promise = global.Promise;
   mongoose.connect(mongoUrl);
 
   const greetsSchema = mongoose.Schema({
-    name: String
+    name: String,
+    counter: Number
   });
   greetsSchema.index({
-    name: 1
+    name: 1,
   }, {
     unique: true
   });

@@ -41,28 +41,37 @@ res.render('greetings/add', {counter: greets})
 const add = function(req, res, next){
   var radioBtn = req.body.languages;
 
-  var greetedName = req.body.name;
+  var greetedName  = {
+ name:  req.body.name,
+ counter: 1
+  }
 
-greetedName.substr(0, 1).toUpperCase() + greetedName.substr(1).toLowerCase()
-
-if(!greetedName || !radioBtn){
+if(!greetedName.name || !radioBtn){
 req.flash('error', 'enter name or Select radio button');
 res.render('greetings/add');
 return;
 }
 else {
-models.greets.create({name: greetedName}, function(err, results){
+models.greets.create(greetedName, function(err, results){
 if(err){
   if(err.code === 11000){
-req.flash('error', 'Welcome back')
-
+models.greets.findOne({
+  name : greetedName.name
+})
+.exec(function(err, results){
+  if(results){
+    results.counter += 1;
+    results.save();
+  }
+})
+    req.flash('error', 'Welcome back')
   }
   else {
     next(err);
   }
 }
 
-var msg = radioBtn + ' ' + greetedName;
+var msg = radioBtn + ' ' + greetedName.name;
 res.render('greetings/add', {massage: msg});
 })
 
@@ -82,21 +91,26 @@ res.render('greetings/index', {greetings});
 ////////////////////////////////////////////////////
 
 // counting how many each user has been greetd
-  const counter = function(req,res){
-
-var name = req.params.name;
-console.log(counterMap[name]);
-const greetedCounter = counterMap[name];
-  res.send("Hello,"+ " " + name + " " +"has been greeted" +" " + greetedCounter +" "+"time(s)")
-
-  }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+const counter = function(req, res, next){
+  var names = req.params.names
+  models.greets.findOne({
+    name : names
+  }, function(err, results){
+    if(results){
+      var MyMsgCounter = 'Hello' + ' ' + names + ' ' + 'has been greeted' + ' ' + results.counter + ' ' + 'time(s)'
+      res.render('greetings/myCounter', {myCounter: MyMsgCounter});
+    }
+  })
+}
+
+/////////////////////////////////////////////////////////////////////
   return {
 
     index,
-    counter,
     getMenu,
     add,
+    counter,
     clearCounter
   }
 }
